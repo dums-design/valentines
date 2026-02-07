@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A Message For You 💝</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+font-family: 'Georgia', serif;
+background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+min-height: 100vh;
+display: flex;
+justify-content: center;
+align-items: center;
+padding: 20px;
+overflow-x: hidden;
+}
+.container {
+background: white;
+padding: 40px;
+border-radius: 30px;
+box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+max-width: 600px;
+width: 100%;
+text-align: center;
+}
+h1 { color: #f5576c; margin-bottom: 20px; font-size: 28px; }
+.instruction { color: #666; margin-bottom: 30px; font-style: italic; }
+.progress {
+width: 100%; height: 15px; background: #f0f0f0;
+border-radius: 10px; margin: 20px 0; overflow: hidden;
+}
+.progress-bar {
+height: 100%; background: linear-gradient(90deg, #f093fb 0%, #f5576c 100%);
+width: 0%; transition: width 0.1s linear;
+}
+.heart-button {
+background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+width: 150px; height: 150px; border-radius: 50%;
+display: inline-flex; justify-content: center; align-items: center;
+cursor: pointer; transition: transform 0.3s; margin: 20px 0;
+}
+.heart-button:hover { transform: scale(1.1); }
+.heart-emoji { font-size: 60px; animation: heartbeat 1.5s infinite; }
+@keyframes heartbeat { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
+#revealedMessage { font-size: 24px; color: #f5576c; font-weight: bold; margin: 20px 0; display: none; }
+.final-message { display: none; background: #fff5f6; padding: 30px; border-radius: 20px; border: 2px dashed #f5576c; margin-top: 20px; }
+.reply-btn {
+padding: 15px 30px; font-size: 18px; border: none; border-radius: 25px;
+cursor: pointer; margin: 10px; transition: 0.3s; font-weight: bold;
+}
+.yes { background: #f5576c; color: white; }
+.yesss { background: #ff1744; color: white; animation: pulse 1.5s infinite; }
+@keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+.falling-heart { position: fixed; top: -10%; font-size: 24px; animation: fall linear forwards; z-index: 1000; }
+@keyframes fall { to { transform: translateY(110vh) rotate(360deg); } }
+.response-content { line-height: 1.8; color: #444; font-size: 18px; }
+</style>
+</head>
+<body>
+<div class="container">
+<div id="setup">
+<h1>💝 A Special Surprise 💝</h1>
+<p class="instruction">Tap the heart to reveal what's inside...</p>
+<div class="progress"><div class="progress-bar" id="progressBar"></div></div>
+<div class="heart-button" id="heartButton"><span class="heart-emoji">❤️</span></div>
+</div>
+
+<div id="revealedMessage">Opening my heart...</div>
+
+<div class="final-message" id="finalMessage">
+<h2>Will you be my Valentine? 💖</h2>
+<p style="margin: 15px 0;">Every moment with you is a beautiful dream come true.</p>
+<div id="replyButtons">
+<button class="reply-btn yes" onclick="handleReply('yes')">Yes! 💖</button>
+<button class="reply-btn yesss" onclick="handleReply('yesss')">YESSSSSSSS!!! 🎉</button>
+</div>
+</div>
+
+<div id="responseMessage" style="display:none;" class="response-content">
+<h2 id="resTitle" style="color: #f5576c; margin-bottom: 20px;"></h2>
+<div id="resText"></div>
+</div>
+</div>
+
+<script>
+const heartButton = document.getElementById('heartButton');
+const progressBar = document.getElementById('progressBar');
+
+heartButton.addEventListener('click', function() {
+heartButton.style.pointerEvents = 'none';
+let progress = 0;
+const interval = setInterval(() => {
+progress += 2;
+progressBar.style.width = progress + '%';
+if (progress >= 100) {
+clearInterval(interval);
+showProposal();
+}
+}, 30);
+});
+
+function showProposal() {
+document.getElementById('setup').style.display = 'none';
+document.getElementById('revealedMessage').style.display = 'block';
+setTimeout(() => {
+document.getElementById('revealedMessage').style.display = 'none';
+document.getElementById('finalMessage').style.display = 'block';
+}, 1500);
+}
+
+function handleReply(choice) {
+document.getElementById('finalMessage').style.display = 'none';
+const res = document.getElementById('responseMessage');
+res.style.display = 'block';
+createHeartsRain();
+
+if (choice === 'yes') {
+document.getElementById('resTitle').textContent = "You've Made Me the Happiest! 💕";
+document.getElementById('resText').innerHTML = `
+<p>My heart is overflowing right now. Thank you for saying yes to being mine.</p>
+<p style="margin-top:10px;">Since the moment we met, you’ve brought a light into my life that I never knew was missing. You are my favorite thought, my biggest inspiration, and my home. I promise to cherish you, listen to you, and love you more with every passing sunset.</p>
+<p style="margin-top:10px; font-weight:bold; color:#f5576c;">I can't wait to make beautiful memories with you this Valentine's Day and forever! 🌹</p>`;
+} else {
+document.getElementById('resTitle').textContent = "MY HEART IS SOARING! 🎊";
+document.getElementById('resText').innerHTML = `
+<p>I am absolutely, undeniably the luckiest person in the world! your "YES" is the best gift I could ever receive.</p>
+<p style="margin-top:10px;">You are the melody to my song and the spark in my day. I promise to treat you like the queen you are, to hold your hand through everything, and to never stop showing you how much you mean to me.</p>
+<p style="margin-top:10px; font-weight:bold; color:#f5576c;">Get ready, because I'm going to spoil you with all the love and happiness you deserve! Today, tomorrow, and always. 💖🔥</p>`;
+}
+}
+
+function createHeartsRain() {
+const emojis = ['❤️', '💖', '💝', '💕', '💗', '✨'];
+for (let i = 0; i < 70; i++) {
+setTimeout(() => {
+const heart = document.createElement('div');
+heart.className = 'falling-heart';
+heart.innerHTML = emojis[Math.floor(Math.random() * emojis.length)];
+heart.style.left = Math.random() * 100 + 'vw';
+heart.style.animationDuration = (Math.random() * 3 + 2) + 's';
+heart.style.opacity = Math.random();
+document.body.appendChild(heart);
+setTimeout(() => heart.remove(), 5000);
+}, i * 80);
+}
+}
+</script>
+</body>
+</html>
